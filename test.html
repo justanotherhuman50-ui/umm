@@ -305,9 +305,9 @@ section { position: relative; }
   position: relative;
 }
 
-/* Hero inner padding — generous left margin */
+/* Hero inner padding — generous left margin, text pushed deeper toward center */
 #intro > div {
-  padding-left: max(4rem, calc((100vw - var(--max-w)) / 2 + 2rem));
+  padding-left: max(6rem, calc((100vw - var(--max-w)) / 2 + 5rem));
 }
 
 /* Subtle decorative lines — engineering graph paper feel */
@@ -542,74 +542,101 @@ section { position: relative; }
 }
 
 /* =============================================
-   HERO TERMINAL BLOCK
+   HERO TYPEWRITER — animated second line
    ============================================= */
-.hero-terminal {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  background: rgba(15,31,61,0.94);
-  border: 1px solid rgba(184,115,51,0.25);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  max-width: 400px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 24px rgba(15,31,61,0.18), 0 0 0 1px rgba(184,115,51,0.08);
+.hero-typewriter {
+  display: inline-flex;
+  align-items: baseline;
 }
 
-.hero-terminal__bar {
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 0.5rem 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.hero-terminal__dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  opacity: 0.8;
-}
-
-.hero-terminal__title {
-  margin-left: auto;
-  font-size: 0.6rem;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.1em;
-}
-
-.hero-terminal__body {
-  padding: 0.85rem 1rem;
-  min-height: 90px;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
-  display: flex;
-  flex-direction: column;
-}
-
-#terminalOutput {
-  flex: 1;
-}
-
-#terminalOutput .t-prompt  { color: rgba(184,115,51,0.85); }
-#terminalOutput .t-addr    { color: rgba(152,195,121,0.9); }
-#terminalOutput .t-val     { color: rgba(97,175,239,0.9); }
-#terminalOutput .t-ok      { color: rgba(152,195,121,0.85); }
-#terminalOutput .t-dim     { color: rgba(255,255,255,0.28); }
-
-.hero-terminal__cursor {
+/* Blinking caret that trails the typed text */
+.type-cursor {
   display: inline-block;
-  color: var(--copper);
-  animation: termCursorBlink 1s step-end infinite;
-  font-size: 0.9rem;
-  line-height: 1;
-  margin-top: 2px;
+  width: 2px;
+  align-self: stretch;
+  min-height: 1em;
+  margin-left: 0.06em;
+  background: var(--copper);
+  transform: translateY(0.1em);
+  animation: typeCursorBlink 1s step-end infinite;
 }
 
-@keyframes termCursorBlink {
+@keyframes typeCursorBlink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .type-cursor { animation: none; }
+}
+
+/* =============================================
+   HERO SCOPE — laptop-only live signal readout
+   ============================================= */
+.hero-scope {
+  display: none; /* hidden on tablet/phone, enabled on laptop+ */
+  width: 260px;
+  margin-bottom: 2.25rem;
+  padding: 0.7rem 0.85rem 0.55rem;
+  background: var(--navy);
+  border: 1px solid rgba(184,115,51,0.28);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.hero-scope__head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.7);
+  margin-bottom: 0.55rem;
+}
+.hero-scope__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--copper-light);
+  box-shadow: 0 0 0 0 rgba(212,146,74,0.6);
+  animation: scopePing 1.8s ease-out infinite;
+}
+@keyframes scopePing {
+  0%   { box-shadow: 0 0 0 0 rgba(212,146,74,0.55); }
+  70%  { box-shadow: 0 0 0 6px rgba(212,146,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,146,74,0); }
+}
+.hero-scope__hz { margin-left: auto; color: var(--copper-light); }
+.hero-scope__svg {
+  display: block;
+  width: 100%;
+  height: 56px;
+}
+.hero-scope__grid line {
+  stroke: rgba(245,242,236,0.08);
+  stroke-width: 1;
+}
+.hero-scope__wave {
+  fill: none;
+  stroke: var(--copper-light);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(212,146,74,0.45));
+  animation: scopeScroll 3.2s linear infinite;
+}
+@keyframes scopeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-160px); }
+}
+
+/* Only show this on laptop / desktop widths */
+@media (min-width: 1024px) {
+  .hero-scope { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scope__wave { animation: none; }
+  .hero-scope__dot { animation: none; }
 }
 
 .s-intro__tagline {
@@ -803,19 +830,78 @@ section { position: relative; }
 }
 
 @media (max-width: 860px) {
+  /* Photo becomes a full-bleed backdrop; text is overlaid on top */
   #intro {
-    grid-template-columns: 1fr;
-    min-height: auto;
+    display: block;
+    min-height: 100vh;
+    padding-top: 0;
   }
+  #intro > div { padding-left: 0; }
+
   .s-intro__content-media {
-    height: 60vw;
-    min-height: 320px;
-    order: -1;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    min-height: 100%;
+    order: 0;
+    z-index: 0;
   }
+  .s-intro__content-media img { object-position: center 18%; }
+  .s-intro__content-media::before { display: none; }
+  /* Stronger gradient so the light text stays legible over the photo */
+  .s-intro__content-media::after {
+    background:
+      linear-gradient(to bottom, rgba(10,20,40,0.55) 0%, rgba(10,20,40,0.82) 100%),
+      linear-gradient(to right, rgba(10,20,40,0.6) 0%, rgba(10,20,40,0.15) 70%);
+  }
+
   .s-intro__content-text {
-    padding: 3rem 0 4rem;
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 1.75rem 4rem;
   }
+  /* Flip text + controls to light tones for contrast on the backdrop */
+  .s-intro__content-title { color: var(--cream); }
+  .copper-flicker { color: var(--copper-light); }
+  .s-intro__tagline { color: rgba(245,242,236,0.85); }
+  .s-intro__content-pretitle { color: var(--copper-light); }
+  .btn--stroke { color: var(--cream); border-color: rgba(245,242,236,0.5); }
+  .btn--stroke:hover { border-color: var(--cream); background: rgba(245,242,236,0.12); }
+
+  .hero-badge { display: none; }
   .s-intro__scroll-down { display: none; }
+
+  /* Make the transparent header legible over the dark photo backdrop */
+  .s-header:not(.sticky) .logo { color: var(--cream); }
+  .s-header:not(.sticky) .logo span { color: var(--copper-light); }
+  .s-header:not(.sticky) .s-header__menu-toggle { border-color: rgba(245,242,236,0.55); }
+  .s-header:not(.sticky) .s-header__menu-toggle span,
+  .s-header:not(.sticky) .s-header__menu-toggle span::before,
+  .s-header:not(.sticky) .s-header__menu-toggle span::after { background: var(--cream); }
+}
+
+@media (max-width: 600px) {
+  .s-intro__content-text {
+    padding: 5.5rem 1.25rem 3.5rem;
+  }
+  .s-intro__content-title {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+  .s-intro__tagline {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+  .s-intro__content-btns {
+    width: 100%;
+  }
+  .s-intro__content-btns .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 }
 
 /* =============================================
@@ -1575,32 +1661,41 @@ section { position: relative; }
   <!-- Left: text -->
   <div class="container" style="display:contents;">
     <div class="s-intro__content-text">
+      <!-- Laptop-only live "logic analyzer" readout — fills the upper negative space -->
+      <div class="hero-scope hero-anim hero-anim-1" aria-hidden="true">
+        <div class="hero-scope__head">
+          <span class="hero-scope__dot"></span>
+          <span class="hero-scope__id">SCOPE&nbsp;·&nbsp;GPIO_4</span>
+          <span class="hero-scope__hz">48&nbsp;kHz</span>
+        </div>
+        <svg class="hero-scope__svg" viewBox="0 0 240 64" preserveAspectRatio="none" role="presentation">
+          <g class="hero-scope__grid">
+            <line x1="0" y1="16" x2="240" y2="16"/>
+            <line x1="0" y1="32" x2="240" y2="32"/>
+            <line x1="0" y1="48" x2="240" y2="48"/>
+            <line x1="60" y1="0" x2="60" y2="64"/>
+            <line x1="120" y1="0" x2="120" y2="64"/>
+            <line x1="180" y1="0" x2="180" y2="64"/>
+          </g>
+          <path class="hero-scope__wave" d="M-160 48 L-160 16 L-120 16 L-120 48 L-80 48 L-80 16 L-40 16 L-40 48 L0 48 L0 16 L40 16 L40 48 L80 48 L80 16 L120 16 L120 48 L160 48 L160 16 L200 16 L200 48 L240 48 L240 16 L280 16 L280 48 L320 48 L320 16 L360 16 L360 48 L400 48"/>
+        </svg>
+      </div>
+
       <p class="s-intro__content-pretitle hero-anim hero-anim-1">Available for Internships | Summer 2026</p>
 
       <h1 class="s-intro__content-title hero-anim hero-anim-2">
         I build things<br>
-        close to the <em class="copper-flicker">metal.</em>
+        <span class="hero-typewriter">
+          <em id="typewriterText" class="copper-flicker"></em><span class="type-cursor" aria-hidden="true"></span>
+        </span>
       </h1>
 
-      <div class="hero-terminal hero-anim hero-anim-3" aria-hidden="true">
-        <div class="hero-terminal__bar">
-          <span class="hero-terminal__dot" style="background:#e06c75"></span>
-          <span class="hero-terminal__dot" style="background:#e5c07b"></span>
-          <span class="hero-terminal__dot" style="background:#98c379"></span>
-          <span class="hero-terminal__title">boot.log</span>
-        </div>
-        <div class="hero-terminal__body">
-          <div id="terminalOutput"></div>
-          <span class="hero-terminal__cursor">▊</span>
-        </div>
-      </div>
-
-      <p class="s-intro__tagline hero-anim hero-anim-4">
+      <p class="s-intro__tagline hero-anim hero-anim-3">
         Firmware, embedded Linux, and FPGA. Final-year ECE at VIT-AP,
         building across bare-metal Cortex cores, hardware accelerators, and drone control stacks.
       </p>
 
-      <div class="s-intro__content-btns hero-anim hero-anim-5">
+      <div class="s-intro__content-btns hero-anim hero-anim-4">
         <a class="smoothscroll btn btn--primary" href="#projects">View Projects</a>
         <a class="smoothscroll btn btn--stroke" href="#footer">Get In Touch</a>
       </div>
@@ -2077,7 +2172,7 @@ section { position: relative; }
       <div class="s-footer__about">
         <p>
           I'm actively looking for firmware, embedded Linux, or drone systems internships 
-          for Summer 2026. If you're working on hardware that matters — or just want to 
+          for Summer 2026. If you're working on hardware that matters �� or just want to 
           talk shop about embedded systems — reach out.
         </p>
         <div class="footer-links-label">Direct links</div>
@@ -2217,7 +2312,7 @@ section { position: relative; }
   highlightCard(0);
 })();
 
-/* ─────────────────────────────────────────────
+/* ──────────────────────────────���──────────────
    Scroll Reveal
    ───────────────────────────────────────────── */
 (function() {
@@ -2229,6 +2324,62 @@ section { position: relative; }
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+
+/* ─────────────────────────────────────────────
+   Hero typewriter — cycles the second line
+   ───────────────────────────────────────────── */
+(function() {
+  const el = document.getElementById('typewriterText');
+  if (!el) return;
+
+  const phrases = [
+    'close to metal.',
+    'for the edge.',
+    'with FPGAs.',
+    'on tiny computers.'
+  ];
+
+  const TYPE_SPEED = 50;     // ms per character typed
+  const ERASE_SPEED = 32;    // ms per character erased
+  const HOLD_TIME = 1500;    // pause after a phrase is fully typed
+
+  // Respect reduced-motion: show the first phrase statically, no looping.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = phrases[0];
+    return;
+  }
+
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let erasing = false;
+
+  function tick() {
+    const current = phrases[phraseIndex];
+
+    if (!erasing) {
+      charIndex++;
+      el.textContent = current.slice(0, charIndex);
+      if (charIndex === current.length) {
+        erasing = true;
+        setTimeout(tick, HOLD_TIME);
+        return;
+      }
+      setTimeout(tick, TYPE_SPEED);
+    } else {
+      charIndex--;
+      el.textContent = current.slice(0, charIndex);
+      if (charIndex === 0) {
+        erasing = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(tick, TYPE_SPEED);
+        return;
+      }
+      setTimeout(tick, ERASE_SPEED);
+    }
+  }
+
+  tick();
 })();
 
 /* ─────────────────────────────────────────────
