@@ -173,22 +173,32 @@ section { position: relative; }
    ============================================= */
 .s-header {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0.25rem;
+  left: 1.5rem;
+  right: 1.5rem;
   z-index: 100;
-  padding: 0 2rem;
-  height: 72px;
+  padding: 0 1.25rem 0 1.5rem;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+  /* Translucent beige glass — floats over both the cream side and the photo */
+  background: rgba(245,242,236,0.55);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(245,242,236,0.55);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: background var(--transition), box-shadow var(--transition),
+              top var(--transition), left var(--transition), right var(--transition),
+              border-radius var(--transition);
 }
 
 .s-header.sticky {
   position: fixed;
-  background: rgba(245,242,236,0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 var(--border-mid), var(--shadow-sm);
+  top: 0.6rem;
+  background: rgba(245,242,236,0.8);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
 .s-header__logo .logo {
@@ -273,14 +283,24 @@ section { position: relative; }
 
 @media (max-width: 900px) {
   .s-header__menu-toggle { display: flex; }
+  /* Logo left, hamburger pushed to the right edge of the pill */
+  .s-header__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
   .s-header__nav {
     display: none;
     position: fixed;
-    top: 72px; left: 0; right: 0;
-    background: rgba(245,242,236,0.98);
+    top: 5.2rem; left: 1.5rem; right: 1.5rem;
+    background: rgba(245,242,236,0.92);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-mid);
-    padding: 1.5rem 2rem 2rem;
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(245,242,236,0.55);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 1rem 1.25rem 1.25rem;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -300,15 +320,17 @@ section { position: relative; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding-top: 72px;
   overflow: hidden;
   position: relative;
 }
 
-/* Hero inner padding — generous left margin, text pushed deeper toward center */
-#intro > div {
-  padding-left: max(6rem, calc((100vw - var(--max-w)) / 2 + 5rem));
-}
+/* Clear the floating nav on the text side only — photo stays full-bleed */
+.s-intro__content-text { padding-top: 84px; }
+
+  /* Hero inner padding — generous left margin, text pushed deeper toward center */
+  #intro > div {
+  padding-left: max(8.5rem, calc((100vw - var(--max-w)) / 2 + 7rem));
+  }
 
 /* Subtle decorative lines — engineering graph paper feel */
 #intro::before {
@@ -448,14 +470,14 @@ section { position: relative; }
 
 
 .s-intro__content-text {
-  padding: 5rem 3rem 5rem 2rem;
+  padding: 5rem 3rem 5rem 3rem;
   position: relative;
   z-index: 1;
 }
 
 .s-intro__content-pretitle {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -474,9 +496,9 @@ section { position: relative; }
 
 .s-intro__content-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2.4rem, 4.8vw, 4rem);
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--navy);
   margin-bottom: 1.5rem;
@@ -544,9 +566,27 @@ section { position: relative; }
 /* =============================================
    HERO TYPEWRITER — animated second line
    ============================================= */
+/* Reserve fixed space for the longest phrase so the layout never
+   reflows (no horizontal or vertical bounce) as text types/erases. */
 .hero-typewriter {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+}
+.hero-typewriter__sizer {
+  visibility: hidden;
+  white-space: nowrap;
+}
+/* Live typed text floats over the reserved area, so its changing
+   width has zero effect on surrounding layout. */
+.hero-typewriter__live {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: inline-flex;
   align-items: baseline;
+  white-space: nowrap;
 }
 
 /* Blinking caret that trails the typed text */
@@ -621,13 +661,10 @@ section { position: relative; }
   stroke: var(--copper-light);
   stroke-width: 2;
   stroke-linejoin: round;
+  stroke-linecap: round;
   filter: drop-shadow(0 0 3px rgba(212,146,74,0.45));
-  animation: scopeScroll 3.2s linear infinite;
 }
-@keyframes scopeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-160px); }
-}
+.hero-scope__id { transition: color 0.4s ease; }
 
 /* Only show this on laptop / desktop widths */
 @media (min-width: 1024px) {
@@ -641,10 +678,10 @@ section { position: relative; }
 
 .s-intro__tagline {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--text-mid);
-  line-height: 1.75;
-  max-width: 440px;
+  line-height: 1.7;
+  max-width: 500px;
   margin-bottom: 2.5rem;
 }
 
@@ -731,6 +768,10 @@ section { position: relative; }
   object-fit: cover;
   object-position: center top;
   display: block;
+  /* Zoom from the top edge: keeps the photo full-bleed behind the nav
+     while pushing the subject down so his hair clears the floating navbar. */
+  transform: scale(1.08);
+  transform-origin: top center;
 }
 
 /* Dark vignette edges on photo */
@@ -760,31 +801,32 @@ section { position: relative; }
   z-index: 4;
 }
 .hero-badge__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   color: var(--copper);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.55rem;
 }
-/* Dual-stat layout */
-.hero-badge__stats {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.hero-badge__stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-.hero-badge__divider {
-  width: 1px;
-  height: 2rem;
-  background: var(--border-mid);
+/* Live pulse dot */
+.hero-badge__pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--copper);
   flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(184,115,51,0.55);
+  animation: badgePulse 1.8s ease-out infinite;
 }
-.hero-badge__val {
+@keyframes badgePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(184,115,51,0.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(184,115,51,0); }
+  100% { box-shadow: 0 0 0 0 rgba(184,115,51,0); }
+}
+.hero-badge__role {
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
@@ -792,10 +834,13 @@ section { position: relative; }
   line-height: 1.2;
   white-space: nowrap;
 }
-.hero-badge__sub {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  color: var(--text-light);
+.hero-badge__pipe {
+  color: var(--copper);
+  font-weight: 400;
+  margin: 0 0.25rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge__pulse { animation: none; }
 }
 
 /* Social links vertical on left edge */
@@ -874,14 +919,6 @@ section { position: relative; }
 
   .hero-badge { display: none; }
   .s-intro__scroll-down { display: none; }
-
-  /* Make the transparent header legible over the dark photo backdrop */
-  .s-header:not(.sticky) .logo { color: var(--cream); }
-  .s-header:not(.sticky) .logo span { color: var(--copper-light); }
-  .s-header:not(.sticky) .s-header__menu-toggle { border-color: rgba(245,242,236,0.55); }
-  .s-header:not(.sticky) .s-header__menu-toggle span,
-  .s-header:not(.sticky) .s-header__menu-toggle span::before,
-  .s-header:not(.sticky) .s-header__menu-toggle span::after { background: var(--cream); }
 }
 
 @media (max-width: 600px) {
@@ -1665,8 +1702,8 @@ section { position: relative; }
       <div class="hero-scope hero-anim hero-anim-1" aria-hidden="true">
         <div class="hero-scope__head">
           <span class="hero-scope__dot"></span>
-          <span class="hero-scope__id">SCOPE&nbsp;·&nbsp;GPIO_4</span>
-          <span class="hero-scope__hz">48&nbsp;kHz</span>
+          <span class="hero-scope__id" id="scopeId">SCOPE&nbsp;·&nbsp;GPIO_0114</span>
+          <span class="hero-scope__hz">505&nbsp;Hz</span>
         </div>
         <svg class="hero-scope__svg" viewBox="0 0 240 64" preserveAspectRatio="none" role="presentation">
           <g class="hero-scope__grid">
@@ -1677,7 +1714,7 @@ section { position: relative; }
             <line x1="120" y1="0" x2="120" y2="64"/>
             <line x1="180" y1="0" x2="180" y2="64"/>
           </g>
-          <path class="hero-scope__wave" d="M-160 48 L-160 16 L-120 16 L-120 48 L-80 48 L-80 16 L-40 16 L-40 48 L0 48 L0 16 L40 16 L40 48 L80 48 L80 16 L120 16 L120 48 L160 48 L160 16 L200 16 L200 48 L240 48 L240 16 L280 16 L280 48 L320 48 L320 16 L360 16 L360 48 L400 48"/>
+          <path class="hero-scope__wave" id="scopeWave" d="M0 48 L0 16 L40 16 L40 48 L80 48 L80 16 L120 16 L120 48 L160 48 L160 16 L200 16 L200 48 L240 48"/>
         </svg>
       </div>
 
@@ -1686,7 +1723,10 @@ section { position: relative; }
       <h1 class="s-intro__content-title hero-anim hero-anim-2">
         I build things<br>
         <span class="hero-typewriter">
-          <em id="typewriterText" class="copper-flicker"></em><span class="type-cursor" aria-hidden="true"></span>
+          <span class="hero-typewriter__sizer" aria-hidden="true">on tiny computers.</span>
+          <span class="hero-typewriter__live">
+            <em id="typewriterText" class="copper-flicker"></em><span class="type-cursor" aria-hidden="true"></span>
+          </span>
         </span>
       </h1>
 
@@ -1708,18 +1748,11 @@ section { position: relative; }
            alt="Atul Akella">
 
       <div class="hero-badge hero-badge-anim">
-        <div class="hero-badge__label">Stack depth</div>
-        <div class="hero-badge__stats">
-          <div class="hero-badge__stat">
-            <div class="hero-badge__val">4 layers</div>
-            <div class="hero-badge__sub">deep</div>
-          </div>
-          <div class="hero-badge__divider"></div>
-          <div class="hero-badge__stat">
-            <div class="hero-badge__val">3 platforms</div>
-            <div class="hero-badge__sub">shipped</div>
-          </div>
+        <div class="hero-badge__label">
+          <span class="hero-badge__pulse" aria-hidden="true"></span>
+          Currently on workbench
         </div>
+        <div class="hero-badge__role">Embedded Linux <span class="hero-badge__pipe">|</span> Firmware Dev</div>
       </div>
     </div>
   </div>
@@ -2312,7 +2345,7 @@ section { position: relative; }
   highlightCard(0);
 })();
 
-/* ──────────────────────────────���──────────────
+/* ───────────────────────────���──���──────────────
    Scroll Reveal
    ───────────────────────────────────────────── */
 (function() {
@@ -2326,7 +2359,7 @@ section { position: relative; }
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 })();
 
-/* ─────────────────────────────────────────────
+/* ─────────��───────────────────────────────────
    Hero typewriter — cycles the second line
    ───────────────────────────────────────────── */
 (function() {
@@ -2380,6 +2413,143 @@ section { position: relative; }
   }
 
   tick();
+})();
+
+/* ─────────────────────────────────────────────
+   Hero oscilloscope — realistic PWM trace that
+   occasionally morphs into an AM-style soundwave
+   ───────────────────────────────────────────── */
+(function() {
+  const scopeWave = document.getElementById('scopeWave');
+  const scopeId = document.getElementById('scopeId');
+  if (!scopeWave) return;
+
+  // Respect reduced motion: keep the static square wave already in markup.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const W = 240;
+  const H = 64;
+  const MID = H / 2;
+
+  const SQUARE_TIME = 8000;
+  const AM_TIME = 10000;
+  const MORPH_TIME = 2000;
+
+  let state = "square";
+  let stateStart = performance.now();
+  let phase = 0;
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  function smoothstep(t) {
+    return t * t * (3 - 2 * t);
+  }
+
+  function squareY(x, scroll) {
+    const cycles = 6;
+    const p = ((x / W) * cycles + scroll) % 1;
+    return p < 0.5 ? 18 : 46;
+  }
+
+  function amY(x, phase) {
+    const t = (x / W) * Math.PI * 4;
+
+    const envelope =
+        4 + 18 * Math.pow(Math.abs(Math.sin(t / 2)), 1.4);
+
+    return MID +
+        envelope * Math.sin(t * 18 + phase);
+  }
+
+  function generatePath(blend, scroll, phase) {
+
+    let d = "";
+
+    for (let x = 0; x <= W; x++) {
+
+      const ySquare = squareY(x, scroll);
+      const yAM = amY(x, phase);
+
+      const y =
+        ySquare * (1 - blend) +
+        yAM * blend;
+
+      d += (x === 0 ? "M" : "L") + x + "," + y + " ";
+    }
+
+    return d;
+  }
+
+  function animate(now) {
+
+    const elapsed = now - stateStart;
+
+    let blend = 0;
+
+    switch(state) {
+
+      case "square":
+        scopeId.textContent = "SCOPE · PWM_AM";
+
+        if(elapsed > SQUARE_TIME) {
+          state = "toAM";
+          stateStart = now;
+        }
+        break;
+
+      case "toAM":
+        blend = smoothstep(
+          clamp(elapsed / MORPH_TIME, 0, 1)
+        );
+
+        scopeId.textContent = "SCOPE · PWM_AM";
+
+        if(elapsed > MORPH_TIME) {
+          state = "am";
+          stateStart = now;
+        }
+        break;
+
+      case "am":
+        blend = 1;
+
+        scopeId.textContent = "SCOPE · GPIO_0114";
+
+        if(elapsed > AM_TIME) {
+          state = "toSquare";
+          stateStart = now;
+        }
+        break;
+
+      case "toSquare":
+        blend = 1 - smoothstep(
+          clamp(elapsed / MORPH_TIME, 0, 1)
+        );
+
+        scopeId.textContent = "SCOPE · GPIO_0114";
+
+        if(elapsed > MORPH_TIME) {
+          state = "square";
+          stateStart = now;
+        }
+        break;
+    }
+
+    phase += 0.025;
+
+    const scroll = now * 0.00045;
+
+    scopeWave.setAttribute(
+      "d",
+      generatePath(blend, scroll, phase)
+    );
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
 })();
 
 /* ─────────────────────────────────────────────
