@@ -13,17 +13,17 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atul Akella — Embedded Systems Engineer</title>
+<title>Atul Akella, Embedded Systems Engineer</title>
 <meta name="description" content="Embedded Systems Engineer specialising in hardware-software co-design, FPGA, and drone tech." />
 <meta itemprop="name" content="Atul Akella" />
-<meta itemprop="description" content="Embedded systems engineer — hardware-software co-design, FPGA, drone tech." />
+<meta itemprop="description" content="Embedded systems engineer, hardware-software co-design, FPGA, drone tech." />
 <meta property="og:url" content="https://heyatul.xyz/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Atul Akella" />
-<meta property="og:description" content="Embedded systems engineer — hardware-software co-design, FPGA, drone tech." />
+<meta property="og:description" content="Embedded systems engineer, hardware-software co-design, FPGA, drone tech." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Atul Akella" />
-<meta name="twitter:description" content="Embedded systems engineer — hardware-software co-design, FPGA, drone tech." />
+<meta name="twitter:description" content="Embedded systems engineer, hardware-software co-design, FPGA, drone tech." />
 
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 
@@ -32,13 +32,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" id="dynamic-favicon">
 <link rel="manifest" href="site.webmanifest">
 
 <style>
 /* =============================================
-   DESIGN TOKENS — Cream + Deep Navy + Copper
+   DESIGN TOKENS, Cream + Deep Navy + Copper
    ============================================= */
 :root {
   /* Palette */
@@ -182,7 +181,7 @@ section { position: relative; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* Translucent beige glass — floats over both the cream side and the photo */
+  /* Translucent beige glass, floats over both the cream side and the photo */
   background: rgba(245,242,236,0.55);
   backdrop-filter: blur(16px) saturate(150%);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
@@ -324,15 +323,15 @@ section { position: relative; }
   position: relative;
 }
 
-/* Clear the floating nav on the text side only — photo stays full-bleed */
+/* Clear the floating nav on the text side only, photo stays full-bleed */
 .s-intro__content-text { padding-top: 84px; }
 
-  /* Hero inner padding — generous left margin, text pushed deeper toward center */
+  /* Hero inner padding, generous left margin, text pushed deeper toward center */
   #intro > div {
   padding-left: max(8.5rem, calc((100vw - var(--max-w)) / 2 + 7rem));
   }
 
-/* Subtle decorative lines — engineering graph paper feel */
+/* Subtle decorative lines, engineering graph paper feel */
 #intro::before {
   content: '';
   position: absolute;
@@ -423,7 +422,7 @@ section { position: relative; }
   to { stroke-dashoffset: 0; }
 }
 
-/* Circuit node — pop in then slow pulse */
+/* Circuit node, pop in then slow pulse */
 .circuit-node {
   opacity: 0;
   animation: nodePop 0.4s ease forwards;
@@ -512,10 +511,10 @@ section { position: relative; }
   font-weight: 400;
 }
 
-/* Crayon annotation — REMOVED */
+/* Crayon annotation, REMOVED */
 
 /* =============================================
-   COPPER FLICKER — kinetic "metal." word
+   COPPER FLICKER, kinetic "metal." word
    ============================================= */
 .copper-flicker {
   font-style: italic;
@@ -564,7 +563,7 @@ section { position: relative; }
 }
 
 /* =============================================
-   HERO TYPEWRITER — animated second line
+   HERO TYPEWRITER, animated second line
    ============================================= */
 /* Reserve fixed space for the longest phrase so the layout never
    reflows (no horizontal or vertical bounce) as text types/erases. */
@@ -611,7 +610,7 @@ section { position: relative; }
 }
 
 /* =============================================
-   HERO SCOPE — laptop-only live signal readout
+   HERO SCOPE, laptop-only live signal readout
    ============================================= */
 .hero-scope {
   display: none; /* hidden on tablet/phone, enabled on laptop+ */
@@ -986,7 +985,7 @@ section { position: relative; }
   font-weight: 600;
 }
 
-/* Baskets column — 1x4 stacked vertically */
+/* Baskets column, 1x4 stacked vertically */
 .about-skills-col {
   display: flex;
   flex-direction: column;
@@ -1002,7 +1001,7 @@ section { position: relative; }
   margin-bottom: 0.85rem;
 }
 
-/* Skill baskets — 1 column, 4 rows */
+/* Skill baskets, 1 column, 4 rows */
 .skills-baskets {
   display: flex;
   flex-direction: column;
@@ -1062,7 +1061,7 @@ section { position: relative; }
   transform: scale(1.05);
 }
 
-/* Remove old card styles — no longer used */
+/* Remove old card styles, no longer used */
 .about-cards { display: none; }
 
 @media (max-width: 860px) {
@@ -1194,6 +1193,7 @@ section { position: relative; }
 }
 
 .proj-card {
+  position: relative;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -1203,10 +1203,25 @@ section { position: relative; }
   display: flex;
   flex-direction: column;
 }
+/* Copper accent sweep along the top edge on hover */
+.proj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 3;
+}
 .proj-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
-  border-color: var(--border-mid);
+  box-shadow: var(--shadow-lg, var(--shadow-md));
+  transform: translateY(-5px);
+  border-color: rgba(184,115,51,0.35);
+}
+.proj-card:hover::before {
+  transform: scaleX(1);
 }
 
 .exp-icon { display: none; } /* replaced by year mark */
@@ -1279,23 +1294,13 @@ section { position: relative; }
 }
 .proj-metric {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: var(--copper);
-  background: var(--copper-pale);
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
-  font-weight: 500;
-}
-
-.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.proj-tag {
-  font-family: var(--font-mono);
   font-size: 0.6rem;
-  color: var(--text-light);
+  color: var(--copper);
   background: var(--cream);
   border: 1px solid var(--border);
   padding: 0.18rem 0.45rem;
   border-radius: 3px;
+  font-weight: 500;
 }
 
 .proj-footer {
@@ -1339,7 +1344,7 @@ section { position: relative; }
   line-height: 1.2;
 }
 
-/* Timeline scroll — rewired from original */
+/* Timeline scroll, rewired from original */
 .timeline-container {
   position: relative;
   width: 100%;
@@ -1653,7 +1658,7 @@ section { position: relative; }
 
 
 <!-- ============================================================
-     INTRO / HERO  — target-section for scrollspy
+     INTRO / HERO , target-section for scrollspy
      ============================================================ -->
 <section id="intro" class="s-intro target-section">
 
@@ -1671,7 +1676,7 @@ section { position: relative; }
       <!-- Diagonal accent -->
       <path class="circuit-path-3" d="M420 200 L420 120 L520 120 L520 -20" stroke="rgba(184,115,51,0.08)" stroke-width="1.5" fill="none"/>
 
-      <!-- Nodes — copper dots at junctions -->
+      <!-- Nodes, copper dots at junctions -->
       <g class="circuit-node" transform="translate(120,200)">
         <circle r="4" fill="rgba(184,115,51,0.25)" stroke="rgba(184,115,51,0.5)" stroke-width="1"/>
         <circle r="2" fill="rgba(184,115,51,0.6)"/>
@@ -1698,7 +1703,7 @@ section { position: relative; }
   <!-- Left: text -->
   <div class="container" style="display:contents;">
     <div class="s-intro__content-text">
-      <!-- Laptop-only live "logic analyzer" readout — fills the upper negative space -->
+      <!-- Laptop-only live "logic analyzer" readout, fills the upper negative space -->
       <div class="hero-scope hero-anim hero-anim-1" aria-hidden="true">
         <div class="hero-scope__head">
           <span class="hero-scope__dot"></span>
@@ -1886,7 +1891,7 @@ section { position: relative; }
 
       <div class="exp-card reveal">
         <div style="display:flex;align-items:baseline;gap:0.85rem;margin-bottom:0.2rem;">
-          <div class="exp-role">Research Intern — CommNet Lab</div>
+          <div class="exp-role">Research Intern, CommNet Lab</div>
           <div class="exp-year-mark">May – Jul 2025</div>
         </div>
         <div class="exp-place">NIT Rourkela | Rourkela, India</div>
@@ -1895,7 +1900,7 @@ section { position: relative; }
           <span class="exp-tag">Hardware</span>
         </div>
         <ul class="exp-bullets">
-          <li>Designed a simplex FSO data link from scratch — custom UART framing with byte stuffing and start/stop delimiters, NRZ encoding, multi-protocol input bridging across I2C, UART, SPI, RJ45, and RS232.</li>
+          <li>Designed a simplex FSO data link from scratch, custom UART framing with byte stuffing and start/stop delimiters, NRZ encoding, multi-protocol input bridging across I2C, UART, SPI, RJ45, and RS232.</li>
           <li>Demonstrated reliable text and image transmission over a free-space laser link.</li>
           <li>Built signal recovery pipeline on raw photodetector output; documented full-duplex extension path with link-layer ACK/NAK retransmission.</li>
         </ul>
@@ -1911,7 +1916,7 @@ section { position: relative; }
           <span class="exp-tag">Edge ML | Computer Vision</span>
         </div>
         <ul class="exp-bullets">
-          <li>Benchmarked YOLOv8, DETR, and SAM on aquaculture field datasets for shrimp defect detection — improved +6% mAP over baseline.</li>
+          <li>Benchmarked YOLOv8, DETR, and SAM on aquaculture field datasets for shrimp defect detection, improved +6% mAP over baseline.</li>
           <li>Optimised the classification pipeline for edge deployment; validated across multiple architectures on real field data.</li>
         </ul>
       </div>
@@ -1936,7 +1941,7 @@ section { position: relative; }
         <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--navy);">
           Things I've built.
         </h2>
-        <p class="reveal">Hardware, firmware, and ML — often all three at once.</p>
+        <p class="reveal">Hardware, firmware, and ML, often all three at once.</p>
       </div>
       <a href="https://github.com/atulakella" target="_blank" rel="noopener" class="btn btn--stroke reveal">
         All on GitHub ↗
@@ -1951,7 +1956,7 @@ section { position: relative; }
           <div class="proj-year">Apr 2026</div>
         </div>
         <div class="proj-body">
-          <div class="proj-name">CNN Inference Accelerator — Zynq-7000</div>
+          <div class="proj-name">CNN Inference Accelerator, Zynq-7000</div>
           <p class="proj-desc">
             Conv2D HLS kernel with 3-row circular BRAM line buffer eliminating AXI DDR stalls.
             16-bit fixed-point quantisation, full PS+PL AXI pipeline.
@@ -1961,13 +1966,6 @@ section { position: relative; }
             <span class="proj-metric">DSP: 45 → 9 (5×)</span>
             <span class="proj-metric">2.66× speedup</span>
             <span class="proj-metric">1421 inf/sec</span>
-          </div>
-          <div class="proj-tags">
-            <span class="proj-tag">Vitis HLS</span>
-            <span class="proj-tag">AXI4</span>
-            <span class="proj-tag">Zynq Z7-10</span>
-            <span class="proj-tag">fixed-point</span>
-            <span class="proj-tag">MNIST</span>
           </div>
         </div>
         <div class="proj-footer">
@@ -1984,7 +1982,7 @@ section { position: relative; }
           <div class="proj-year">Mar 2026</div>
         </div>
         <div class="proj-body">
-          <div class="proj-name">Tethered Drone — RC-less Control Stack</div>
+          <div class="proj-name">Tethered Drone, RC-less Control Stack</div>
           <p class="proj-desc">
             Python + ESP32 translating inputs over ESP-NOW into CRSF, emulating a standard RC receiver.
             MAVLink telemetry with failsafe. Hot-swap circuit for mid-flight tether-battery switching.
@@ -1993,12 +1991,6 @@ section { position: relative; }
             <span class="proj-metric">10m tether</span>
             <span class="proj-metric">ESP-NOW</span>
             <span class="proj-metric">MAVLink telemetry</span>
-          </div>
-          <div class="proj-tags">
-            <span class="proj-tag">ESP32</span>
-            <span class="proj-tag">iNav</span>
-            <span class="proj-tag">CRSF</span>
-            <span class="proj-tag">power electronics</span>
           </div>
         </div>
         <div class="proj-footer">
@@ -2015,7 +2007,7 @@ section { position: relative; }
           <div class="proj-year">2024</div>
         </div>
         <div class="proj-body">
-          <div class="proj-name">Electronic Nose — Ghee Adulteration Detection</div>
+          <div class="proj-name">Electronic Nose, Ghee Adulteration Detection</div>
           <p class="proj-desc">
             4-axis gas sensor array with edge ML inference for ghee adulteration detection.
             Spurred by the Tirupati laddu controversy. Deployed on-device.
@@ -2023,12 +2015,6 @@ section { position: relative; }
           <div class="proj-metrics">
             <span class="proj-metric">86.6% accuracy</span>
             <span class="proj-metric">On-device inference</span>
-          </div>
-          <div class="proj-tags">
-            <span class="proj-tag">TinyML</span>
-            <span class="proj-tag">Embedded C</span>
-            <span class="proj-tag">gas sensors</span>
-            <span class="proj-tag">edge ML</span>
           </div>
         </div>
         <div class="proj-footer">
@@ -2054,12 +2040,6 @@ section { position: relative; }
             <span class="proj-metric">ADS1299 AFE</span>
             <span class="proj-metric">4 brain states</span>
           </div>
-          <div class="proj-tags">
-            <span class="proj-tag">ADS1299</span>
-            <span class="proj-tag">biomedical</span>
-            <span class="proj-tag">SPI</span>
-            <span class="proj-tag">signal processing</span>
-          </div>
         </div>
         <div class="proj-footer">
           <a href="https://github.com/atulakella" target="_blank" rel="noopener" class="proj-link">
@@ -2075,17 +2055,11 @@ section { position: relative; }
           <div class="proj-year">2024</div>
         </div>
         <div class="proj-body">
-          <div class="proj-name">VISU-NG — Humanoid Robot</div>
+          <div class="proj-name">VISU-NG, Humanoid Robot</div>
           <p class="proj-desc">
             3D-printed human-centric humanoid robot with environmental perception and interaction.
             Integrated computer vision with real-time motion planning.
           </p>
-          <div class="proj-tags">
-            <span class="proj-tag">ROS2</span>
-            <span class="proj-tag">3D printing</span>
-            <span class="proj-tag">computer vision</span>
-            <span class="proj-tag">robotics</span>
-          </div>
         </div>
         <div class="proj-footer">
           <a href="https://github.com/atulakella" target="_blank" rel="noopener" class="proj-link">
@@ -2101,16 +2075,11 @@ section { position: relative; }
           <div class="proj-year">2024</div>
         </div>
         <div class="proj-body">
-          <div class="proj-name">PlantSense — YOLOv11 Disease Detector</div>
+          <div class="proj-name">PlantSense, YOLOv11 Disease Detector</div>
           <p class="proj-desc">
-            Web-based plant disease identification platform — farmers upload an image, 
+            Web-based plant disease identification platform, farmers upload an image, 
             YOLOv11 classifies and annotates it in real time. No drones or thermal sensors required.
           </p>
-          <div class="proj-tags">
-            <span class="proj-tag">YOLOv11</span>
-            <span class="proj-tag">computer vision</span>
-            <span class="proj-tag">agritech</span>
-          </div>
         </div>
         <div class="proj-footer">
           <a href="https://github.com/atulakella" target="_blank" rel="noopener" class="proj-link">
@@ -2126,7 +2095,7 @@ section { position: relative; }
 
 
 <!-- ============================================================
-     ACHIEVEMENTS — wired to original timeline JS
+     ACHIEVEMENTS, wired to original timeline JS
      ============================================================ -->
 <section id="Things" class="target-section">
   <div class="container">
@@ -2157,7 +2126,7 @@ section { position: relative; }
         <div class="card">
           <div class="card-age-badge">Age 15</div>
           <h2>Developed first portfolio website</h2>
-          <p>Designed and developed my personal portfolio with an interactive chatbot — first real full-stack project.</p>
+          <p>Designed and developed my personal portfolio with an interactive chatbot, first real full-stack project.</p>
         </div>
 
         <div class="card">
@@ -2168,7 +2137,7 @@ section { position: relative; }
 
         <div class="card">
           <div class="card-age-badge">Age 20</div>
-          <h2>₹14L MSME Grant — Govt. of India</h2>
+          <h2>₹14L MSME Grant, Govt. of India</h2>
           <p>Received a government innovation grant from the Ministry of MSME for embedded systems innovation work.</p>
         </div>
 
@@ -2206,7 +2175,7 @@ section { position: relative; }
         <p>
           I'm actively looking for firmware, embedded Linux, or drone systems internships 
           for Summer 2026. If you're working on hardware that matters �� or just want to 
-          talk shop about embedded systems — reach out.
+          talk shop about embedded systems, reach out.
         </p>
         <div class="footer-links-label">Direct links</div>
         <ul class="footer-link-list">
@@ -2345,7 +2314,7 @@ section { position: relative; }
   highlightCard(0);
 })();
 
-/* ───────────────────────────���──���──────────────
+/* ───────────────────────────���──���───────────��──
    Scroll Reveal
    ───────────────────────────────────────────── */
 (function() {
@@ -2356,11 +2325,19 @@ section { position: relative; }
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Stagger siblings within the same parent so reveals cascade instead of firing all at once
+  const counts = new Map();
+  document.querySelectorAll('.reveal').forEach(el => {
+    const parent = el.parentElement;
+    const i = counts.get(parent) || 0;
+    if (i > 0) el.style.transitionDelay = Math.min(i * 90, 540) + 'ms';
+    counts.set(parent, i + 1);
+    obs.observe(el);
+  });
 })();
 
 /* ─────────��───────────────────────────────────
-   Hero typewriter — cycles the second line
+   Hero typewriter, cycles the second line
    ───────────────────────────────────────────── */
 (function() {
   const el = document.getElementById('typewriterText');
@@ -2416,7 +2393,7 @@ section { position: relative; }
 })();
 
 /* ─────────────────────────────────────────────
-   Hero oscilloscope — realistic PWM trace that
+   Hero oscilloscope, realistic PWM trace that
    occasionally morphs into an AM-style soundwave
    ───────────────────────────────────────────── */
 (function() {
@@ -2564,6 +2541,179 @@ section { position: relative; }
   }, { passive: true });
 })();
 </script>
+<script>
+const canvas = document.createElement("canvas");
+canvas.width = 32;
+canvas.height = 32;
 
+const ctx = canvas.getContext("2d");
+const favicon = document.getElementById("dynamic-favicon");
+
+const COPPER = "#D09B5A";
+const POINTS = 80;
+
+function smoothstep(t) {
+    return t * t * (3 - 2 * t);
+}
+
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
+
+function interpolateShapes(a, b, t) {
+    const pts = [];
+
+    for (let i = 0; i < POINTS; i++) {
+        pts.push({
+            x: lerp(a[i].x, b[i].x, t),
+            y: lerp(a[i].y, b[i].y, t)
+        });
+    }
+
+    return pts;
+}
+
+function spaghettiShape(time) {
+
+    const pts = [];
+
+    for (let i = 0; i < POINTS; i++) {
+
+        const p = i / (POINTS - 1);
+
+        pts.push({
+            x: 3 + p * 26,
+
+            y:
+                16 +
+                4.5 * Math.sin(p * Math.PI * 3 + time * 0.0025) +
+                2.5 * Math.sin(p * Math.PI * 7 - time * 0.0015) +
+                1.2 * Math.sin(p * Math.PI * 13)
+        });
+    }
+
+    return pts;
+}
+
+function rabbitShape() {
+
+    const pts = [];
+
+    for (let i = 0; i < POINTS; i++) {
+
+        const p = i / (POINTS - 1);
+
+        let y;
+
+        if (p < 0.25) {
+
+            y =
+                24 -
+                16 *
+                Math.sin(
+                    (p / 0.25) * Math.PI
+                );
+
+        } else if (p < 0.50) {
+
+            y = 24;
+
+        } else if (p < 0.75) {
+
+            y =
+                24 -
+                16 *
+                Math.sin(
+                    ((p - 0.50) / 0.25) * Math.PI
+                );
+
+        } else {
+
+            y = 24;
+        }
+
+        pts.push({
+            x: 3 + p * 26,
+            y
+        });
+    }
+
+    return pts;
+}
+
+function getCurrentShape(time) {
+
+    const cycle = 20000;
+    const t = time % cycle;
+
+    const spaghetti = spaghettiShape(time);
+    const rabbit = rabbitShape();
+
+    // 0-6s spaghetti
+    if (t < 6000)
+        return spaghetti;
+
+    // 6-8s morph
+    if (t < 8000)
+        return interpolateShapes(
+            spaghetti,
+            rabbit,
+            smoothstep((t - 6000) / 2000)
+        );
+
+    // 8-11s rabbit
+    if (t < 11000)
+        return rabbit;
+
+    // 11-13s morph back
+    if (t < 13000)
+        return interpolateShapes(
+            rabbit,
+            spaghetti,
+            smoothstep((t - 11000) / 2000)
+        );
+
+    // 13-20s spaghetti
+    return spaghetti;
+}
+
+function drawShape(points) {
+
+    ctx.clearRect(0, 0, 32, 32);
+
+    ctx.strokeStyle = COPPER;
+    ctx.lineWidth = 2.8;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.beginPath();
+
+    points.forEach((p, i) => {
+
+        if (i === 0)
+            ctx.moveTo(p.x, p.y);
+        else
+            ctx.lineTo(p.x, p.y);
+
+    });
+
+    ctx.stroke();
+
+    favicon.href = canvas.toDataURL("image/png");
+}
+
+function animate() {
+
+    const now = performance.now();
+
+    drawShape(
+        getCurrentShape(now)
+    );
+
+    setTimeout(animate, 80);
+}
+
+animate();
+</script>
 </body>
 </html>
