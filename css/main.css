@@ -1635,3 +1635,111 @@ section { position: relative; }
   color: #fff;
   border-color: rgba(255, 255, 255, 0.2);
 }
+
+/* projects: "More on GitHub" card (was inline styles + JS handlers) */
+.proj-card--github {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.proj-card--github:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
+}
+.proj-card--github .proj-body { font-size: 1.08em; }
+.proj-card--github .proj-name { font-size: 1.18em; }
+.proj-card--github .proj-desc { font-size: 1.08em; }
+.proj-card--github .proj-link { font-size: 1.05em; }
+
+/* disabled / informational project link (was inline styles) */
+.proj-link--muted {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* =============================================
+   FOOTER ROBOT PLAYGROUND
+   ============================================= */
+.s-footer { position: relative; }
+
+#robot-playground {
+  position: absolute;
+  top: 32px;
+  right: 40px;
+  width: 338px;
+  height: 247px;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.rp-ground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+#bot-wrap {
+  position: absolute;
+  left: 169px;
+  top: 156px;
+  width: 73px;
+  height: 78px;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%);
+  will-change: transform, left, top;
+}
+
+#bot-svg { display: block; overflow: visible; }
+
+#bot-body    { transform-box: fill-box; transform-origin: 50% 100%; }
+#bot-head    { transform-box: fill-box; transform-origin: 50% 100%; }
+#bot-antenna { transform-box: fill-box; transform-origin: 50% 100%; }
+#bot-eyes    { transform-box: fill-box; transform-origin: center; }
+
+#bot-bubble {
+  position: absolute;
+  bottom: 82px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(15, 31, 61, 0.96);
+  color: #e8d5b0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  padding: 5px 9px;
+  border-radius: 7px;
+  border: 1px solid rgba(184, 115, 51, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+#bot-bubble.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.bot-bubble-tail {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(184, 115, 51, 0.6);
+}
+
+/* keep the playground clear of footer content on smaller screens */
+@media (max-width: 1180px) {
+  #robot-playground { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #bot-body, #bot-head, #bot-antenna, #bot-eyes,
+  #bot-pupil-l, #bot-pupil-r { transform: none !important; }
+}
